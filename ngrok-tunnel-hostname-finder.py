@@ -1,5 +1,6 @@
 import ngrok
 import os
+from urllib.parse import urlparse
 
 # construct the api client
 client = ngrok.Client(os.environ["NGROK_API_KEY"])
@@ -15,3 +16,14 @@ if (ngrok_winrm_public_url == None):
     raise Exception("ngrok_winrm_public_url is None, no WinRM tunnel found")
 
 print("Proceed with {} as WinRM URL".format(ngrok_winrm_public_url))
+
+ngrok_winrm_domain = urlparse(ngrok_winrm_public_url).netloc
+
+if (ngrok_winrm_domain == None):
+    raise Exception("ngrok_winrm_domain is None, no WinRM valid domain")
+
+
+if (ngrok_winrm_domain not in ngrok_winrm_public_url):
+    raise Exception("ngrok_winrm_domain is not a substring ngrok_winrm_public_url , no WinRM valid domain")
+
+print("Proceed with {} as WinRM domain".format(ngrok_winrm_domain))
