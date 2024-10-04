@@ -14,3 +14,4 @@ jobs:
       - run: pip --version
       - run: pip install --user -r requirements.ansible.txt
       - run: ansible --version
+      - run: python ngrok-tunnel-hostname-finder.py
