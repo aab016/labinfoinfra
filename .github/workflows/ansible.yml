@@ -1,0 +1,16 @@
+name: ansible
+on: [push]
+jobs:
+  ansible:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: ls -la
+      - run: env
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.7'
+      - run: python --version
+      - run: pip --version
+      - run: pip install --user -r requirements.ansible.txt
+      - run: ansible --version
