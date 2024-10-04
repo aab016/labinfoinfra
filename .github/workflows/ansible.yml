@@ -30,3 +30,9 @@ jobs:
         working-directory: ansible
         env: # Or as an environment variable
           AD_SAFE_MODE_PASSWORD: ${{ secrets.AD_SAFE_MODE_PASSWORD }}
+      - run: sed -i s/NGROK_AUTH_TOKEN/$NGROK_AUTH_TOKEN/g assets/ngrok.yml
+        working-directory: ansible
+        env: # Or as an environment variable
+          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+      - run: ansible-playbook -e 'ansible_password=${{ secrets.ANSIBLE_PASSWORD }}' pb_ngrok.yml
+        working-directory: ansible

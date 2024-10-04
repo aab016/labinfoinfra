@@ -1,0 +1,16 @@
+- name: Provide ngrok config file
+  hosts: all
+  tasks:
+  - name: Install ngrok
+      # https://community.chocolatey.org/packages/python310
+      win_chocolatey:
+        name: ngrok
+        state: present
+  - name: Copy a single file
+    # https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_copy_module.html
+    ansible.windows.win_copy:
+      src: ./assets/ngrok.yml
+      # dest: C:\Temp\renamed-foo.conf
+
+# TODO: after provide the file we should also install the service
+# https://ngrok.com/docs/guides/device-gateway/windows/#step-4-configure-ngrok-to-recover-on-outages
