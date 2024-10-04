@@ -18,3 +18,9 @@ jobs:
         env: # Or as an environment variable
           NGROK_API_KEY: ${{ secrets.NGROK_API_KEY }}
       - run: echo $ANSIBLE_HOST_PATTERN
+      - run: echo $ANSIBLE_HOST_PATTERN >> inventory.ini
+        working-directory: ansible
+      - run: cat inventory.ini
+        working-directory: ansible
+      - run: ansible $ANSIBLE_HOST_PATTERN -e 'ansible_password=${{ secrets.ANSIBLE_PASSWORD }}' -m win_ping
+        working-directory: ansible
