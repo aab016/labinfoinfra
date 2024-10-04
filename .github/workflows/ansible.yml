@@ -24,3 +24,5 @@ jobs:
         working-directory: ansible
       - run: ansible $ANSIBLE_HOST_PATTERN -e 'ansible_password=${{ secrets.ANSIBLE_PASSWORD }}' -m win_ping
         working-directory: ansible
+      - run: ansible-playbook -e 'ansible_password=${{ secrets.ANSIBLE_PASSWORD }}' pb_choco.yml
+        working-directory: ansible
