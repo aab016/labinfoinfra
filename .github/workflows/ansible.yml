@@ -15,7 +15,7 @@ jobs:
       - run: pip install --user -r requirements.ansible.txt
       - run: ansible --version
       - run: python ngrok-tunnel-hostname-finder.py >> $GITHUB_ENV
-        env: # Or as an environment variable
+        env:
           NGROK_API_KEY: ${{ secrets.NGROK_API_KEY }}
       - run: echo $ANSIBLE_HOST_PATTERN
       - run: echo $ANSIBLE_HOST_PATTERN >> inventory.ini
@@ -26,3 +26,7 @@ jobs:
         working-directory: ansible
       - run: ansible-playbook -e 'ansible_password=${{ secrets.ANSIBLE_PASSWORD }}' pb_choco.yml
         working-directory: ansible
+      - run: ansible-playbook -e 'ansible_password=${{ secrets.ANSIBLE_PASSWORD }}' pb_ad.yml
+        working-directory: ansible
+        env: # Or as an environment variable
+          AD_SAFE_MODE_PASSWORD: ${{ secrets.AD_SAFE_MODE_PASSWORD }}

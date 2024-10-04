@@ -1,0 +1,9 @@
+# https://docs.ansible.com/ansible/latest/collections/microsoft/ad/domain_module.html
+- name: Active-Directory Domain & Forest mngmt
+  hosts: all
+  tasks:
+    - name: Create new domain in a new forest on the target host and reboot
+      microsoft.ad.domain:
+        dns_domain_name: informatica.iislagrange
+        safe_mode_password: "{{ lookup('ansible.builtin.env', 'AD_SAFE_MODE_PASSWORD') }}"
+        reboot: true
