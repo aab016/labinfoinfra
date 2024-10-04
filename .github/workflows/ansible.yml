@@ -14,6 +14,7 @@ jobs:
       - run: pip --version
       - run: pip install --user -r requirements.ansible.txt
       - run: ansible --version
-      - run: python ngrok-tunnel-hostname-finder.py
+      - run: python ngrok-tunnel-hostname-finder.py >> $GITHUB_ENV
         env: # Or as an environment variable
-            NGROK_API_KEY: ${{ secrets.NGROK_API_KEY }}
+          NGROK_API_KEY: ${{ secrets.NGROK_API_KEY }}
+      - run: echo $ANSIBLE_HOST_PATTERN

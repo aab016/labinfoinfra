@@ -13,17 +13,15 @@ for t in client.tunnels.list():
         ngrok_winrm_public_url = t.public_url
 
 if (ngrok_winrm_public_url == None):
-    raise Exception("ngrok_winrm_public_url is None, no WinRM tunnel found")
-
-print("Proceed with {} as WinRM URL".format(ngrok_winrm_public_url))
+    raise Exception("ngrok_winrm_public_url({}) is None, no WinRM tunnel found".format(ngrok_winrm_public_url))
 
 ngrok_winrm_domain = urlparse(ngrok_winrm_public_url).netloc
 
 if (ngrok_winrm_domain == None):
-    raise Exception("ngrok_winrm_domain is None, no WinRM valid domain")
+    raise Exception("ngrok_winrm_domain({}) is None, no WinRM valid domain".format(ngrok_winrm_domain))
 
 
 if (ngrok_winrm_domain not in ngrok_winrm_public_url):
-    raise Exception("ngrok_winrm_domain is not a substring ngrok_winrm_public_url , no WinRM valid domain")
+    raise Exception("ngrok_winrm_domain({}) is not a substring ngrok_winrm_public_url({}), no WinRM valid domain".format(ngrok_winrm_domain, ngrok_winrm_public_url))
 
-print("Proceed with {} as WinRM domain".format(ngrok_winrm_domain))
+print("ANSIBLE_HOST_PATTERN={}".format(ngrok_winrm_domain))
