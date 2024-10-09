@@ -9,5 +9,3 @@ tunnels:
     proto: http
     domain: rapidly-elegant-slug.ngrok-free.app
     addr: 5985
-    request_header:
-      add: ["host: 127.0.0.1"]
