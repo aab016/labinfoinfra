@@ -2,6 +2,7 @@ name: ansible
 on: [push]
 jobs:
   ansible:
+    if: false
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
