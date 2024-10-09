@@ -26,15 +26,15 @@ jobs:
         working-directory: ansible
       - run: ansible $ANSIBLE_HOST_PATTERN -e 'ansible_password=${{ secrets.ANSIBLE_PASSWORD }}' -m win_ping
         working-directory: ansible
-      - run: ansible-playbook -e 'ansible_password=${{ secrets.ANSIBLE_PASSWORD }}' pb00_choco.yml
+      - run: ansible-playbook --limit $ANSIBLE_HOST_PATTERN -e 'ansible_password=${{ secrets.ANSIBLE_PASSWORD }}' pb00_choco.yml
         working-directory: ansible
       - run: sed -i s/NGROK_AUTH_TOKEN/$NGROK_AUTH_TOKEN/g assets/ngrok.yml
         working-directory: ansible
         env: # Or as an environment variable
           NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-      - run: ansible-playbook -e 'ansible_password=${{ secrets.ANSIBLE_PASSWORD }}' pb01_ngrok.yml
+      - run: ansible-playbook --limit $ANSIBLE_HOST_PATTERN -e 'ansible_password=${{ secrets.ANSIBLE_PASSWORD }}' pb01_ngrok.yml
         working-directory: ansible
-      - run: ansible-playbook -e 'ansible_password=${{ secrets.ANSIBLE_PASSWORD }}' pb02_ad.yml
+      - run: ansible-playbook --limit $ANSIBLE_HOST_PATTERN -e 'ansible_password=${{ secrets.ANSIBLE_PASSWORD }}' pb02_ad.yml
         working-directory: ansible
         env: # Or as an environment variable
           AD_SAFE_MODE_PASSWORD: ${{ secrets.AD_SAFE_MODE_PASSWORD }}
