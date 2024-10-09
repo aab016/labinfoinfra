@@ -1,0 +1,25 @@
+- name: Install chocolatey packages
+  hosts: all
+  tasks:
+    - name: Create Temp directory
+      win_file:
+        path: C:\Temp
+        state: directory
+    - name: Copy Microsoft .NET Framework 4.8 for Windows 10 Version 1809 and Windows Server 2019 for x64 (KB4486153)
+      # https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_copy_module.html
+      ansible.windows.win_copy:
+        src: ./assets/windows10.0-kb4486153-x64_43ee33b302bfdba470542a128a9ee0b58faa5412.msu
+        dest: C:\Temp\windows10.0-kb4486153-x64_43ee33b302bfdba470542a128a9ee0b58faa5412.msu
+    - name: Install .NET Framework 4.8 validating KB4486153
+      community.windows.win_hotfix:
+        hotfix_kb: KB4486153
+        source: C:\Temp\windows10.0-kb4486153-x64_43ee33b302bfdba470542a128a9ee0b58faa5412.msu
+        state: present
+      register: hotfix_install
+    - ansible.windows.win_reboot:
+      when: hotfix_install.reboot_required
+    - name: Install ngrok
+      # https://community.chocolatey.org/packages/ngrok
+      win_chocolatey:
+        name: ngrok
+        state: present

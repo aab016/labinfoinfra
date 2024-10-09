@@ -1,8 +1,0 @@
-- name: Install chocolatey packages
-  hosts: all
-  tasks:
-    - name: Install python310
-      # https://community.chocolatey.org/packages/python310
-      win_chocolatey:
-        name: python310
-        state: present
