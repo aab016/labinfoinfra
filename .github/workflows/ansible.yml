@@ -12,7 +12,9 @@ jobs:
           python-version: '3.12.7'
       - run: python --version
       - run: pip --version
+      - run: pip install --user -r requirements.txt
       - run: pip install --user -r requirements.ansible.txt
+        working-directory: ansible
       - run: ansible --version
       - run: python ngrok-tunnel-hostname-finder.py >> $GITHUB_ENV
         env:
