@@ -1,0 +1,21 @@
+- name: Provide ngrok config file
+  hosts: all
+  tasks:
+    - name: Create ngrok directory
+      win_file:
+        path: C:\Users\Administrator\AppData\Local/ngrok
+        state: directory
+    - name: Provide ngrok config file
+      # https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_copy_module.html
+      ansible.windows.win_copy:
+        src: ./assets/ngrok.yml
+        dest: C:\Users\Administrator\AppData\Local/ngrok/ngrok.yml
+    - name: Configure ngrok to recover on outages
+      # https://ngrok.com/docs/guides/device-gateway/windows/#step-4-configure-ngrok-to-recover-on-outages
+      ansible.windows.win_powershell:
+        script: |
+          ngrok service install --config C:\Users\Administrator\AppData\Local/ngrok/ngrok.yml
+    - name: Ensure ngrok is started
+      ansible.windows.win_service:
+        name: ngrok
+        state: started
