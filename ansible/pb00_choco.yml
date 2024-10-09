@@ -8,6 +8,7 @@
     - name: Copy Microsoft .NET Framework 4.8 for Windows 10 Version 1809 and Windows Server 2019 for x64 (KB4486153)
       # https://docs.ansible.com/ansible/latest/collections/ansible/windows/win_copy_module.html
       ansible.windows.win_copy:
+        # https://www.catalog.update.microsoft.com/Search.aspx?q=4486153
         src: ./assets/windows10.0-kb4486153-x64_43ee33b302bfdba470542a128a9ee0b58faa5412.msu
         dest: C:\Temp\windows10.0-kb4486153-x64_43ee33b302bfdba470542a128a9ee0b58faa5412.msu
     - name: Install .NET Framework 4.8 validating KB4486153
