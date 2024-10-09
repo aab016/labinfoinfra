@@ -10,6 +10,11 @@
       ansible.windows.win_copy:
         src: ./assets/ngrok.yml
         dest: C:\Users\Administrator\AppData\Local/ngrok/ngrok.yml
+    - name: Provide ngrok authtoken
+      community.windows.win_lineinfile:
+        path: C:\Users\Administrator\AppData\Local/ngrok/ngrok.yml
+        regexp: 'authtoken:'
+        line: "authtoken: {{ lookup('ansible.builtin.env', 'NGROK_AUTH_TOKEN') }}"
     - name: Configure ngrok to recover on outages
       # https://ngrok.com/docs/guides/device-gateway/windows/#step-4-configure-ngrok-to-recover-on-outages
       ansible.windows.win_powershell:
